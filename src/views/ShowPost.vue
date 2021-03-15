@@ -2,7 +2,7 @@
 <div class="showPost">
   <div class="main">
     {{post.category }}
-    <div class="mainDescription" v-bind:style="styles">
+    <div class="mainDescription">
       {{post.mainDescription}}
       <img v-bind:src="post.mainImage" alt="aa" width="20%">
     </div>
