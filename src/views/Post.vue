@@ -2,19 +2,24 @@
 <div>
 
 <div class="container">
-    
+
+  
+    <div class="main-display">
   <!-- ================メインタイトル=================== --> 
        <div class="forms">
-         <div>
-            <label class="form-title" for="title">メインタイトル</label> 
-            </div>
-            <input class="m-title" type="text" placeholder="メインタイトルを入力してください" name="mainTitle" v-model="post.mainTitle">
-       </div>
+         <div class="main-title-label">
+            <label class="titles">メインタイトル</label> 
+            <span class="mandatory">必須</span>
+          </div>
+            <input class="m-title" type="text" placeholder="メインタイトルを入力してください" name="mainTitle" v-model="post.mainTitle" required/>
+       </div><br><br><br>
 
   <!-- ================カテゴリー====================== -->
         <div class="forms">
-          <div>
-            <label class="form-title" for="title">カテゴリー</label> 
+          <div class="cate-title-label">
+            <label class="titles" for="title">カテゴリー</label> 
+            <!-- <span class="mandatory">必須</span> -->
+            
           </div>
             <!-- <input class="part" type="text" name="category" v-model="post.category[0]"> -->
        
@@ -32,32 +37,38 @@
           <!-- input追加 -->
         <button type="button" @click="addInput">追加する</button>
        </div>
-       </div>
+       </div><br><br><br>
 
 
    <!-- ================メイン詳細文====================== -->
        <div class="forms">
-         <div>
-         <label class="form-title" for="title">詳細</label>
+         <div class="mdetail-label">
+          <label class="titles">詳細</label>
+          <span class="mandatory">必須</span>
          </div>
-       <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription" data-formrun-class-if-error="form-control-danger" data-formrun-class-if-success="form-control-success" placeholder="メインとして表示する詳細文" rows="8"></textarea>
-       </div>
+       <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription" data-formrun-class-if-error="form-control-danger" data-formrun-class-if-success="form-control-success" placeholder="メインとして表示する詳細文" rows="8" required></textarea>
+       </div><br><br><br>
    <!-- ================メイン画像====================== -->       
        <div class="forms">
-         <div>
-            <label class="form-title" for="title">メイン写真</label>
+         <div class="mimage-label">
+            <label class="titles">メイン写真</label>
+            <span class="mandatory">必須</span>
          </div> 
             <!-- <input class="part" type="text" name="mainImage" v-model="post.mainImage"> -->
       <div>
-     <input type="file" @change="setImage($event)"/>
+     <input type="file" @change="setImage($event)" required/>
      <img :src="post.mainImage" class="setImage">
   </div>
-       </div><br><br><br><br><br><br>
-   <!-- ================スタート地点====================== -->       
+       </div>
+    
+       <br><br><br>
+    </div><br><br><br>
+   <!-- ================スタート地点====================== -->   
+      <div class="main-display">    
               <div class="forms">
-                <div>
-            <label class="form-title" for="title">スタート地点設定</label> 
-                </div>
+                <div class="start-label">
+            <label class="titles" for="title">スタート地点設定</label> 
+                </div><br>
 
 
   <!-- <div class="postMap">
@@ -71,7 +82,7 @@
       <GmapMap
         :center="center"
         :zoom="zoom"
-        style="width: 500px; height: 500px;"
+        style="width: 730px; height: 500px; display: block; margin:auto;"
         :options="mapStyle"
         @click="getClickPosition"
       >
@@ -94,22 +105,26 @@
       </GmapMap>
 
     </div>
-  </div>
-            <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lat" placeholder="緯度">
-            <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lng" placeholder="経度">
+  </div><br>
+            <!-- <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lat" placeholder="緯度">
+            <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lng" placeholder="経度"> -->
             <!-- <input class="part" type="text" name="startPosition" v-model="post.startPosition.image" placeholder="画像"> -->
-            <input class="part" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル">
+            <input class="m-title" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル"><br><br>
             <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="スタート地点で表示する内容" rows="8"></textarea>
       <div>
         <input type="file" @change="setImageStart($event)"/>
         <img :src="post.startPosition.image" class="setImage">
      </div>
-       </div><br><br><br><br><br><br>
+       </div><br><br><br>
+</div><br><br><br>
 
 
-   <!-- ================中間地点====================== -->       
+   <!-- ================中間地点====================== -->    
+   <div class="main-display">    
         <div class="forms">
-            <label class="form-title" for="title">中間地点設定</label> 
+          <div class="relay-title">
+            <label class="titles" for="title">中間地点設定</label> 
+          </div>
        </div>
        
     <div class="add-relay">
@@ -121,7 +136,7 @@
       <GmapMap
         :center="center"
         :zoom="zoom"
-        style="width: 500px; height: 500px;"
+        style="width: 730px; height: 500px; display: block; margin:auto;"
         :options="mapStyle"
         @click="getClickPositionRelay($event,index)"
       >
@@ -143,14 +158,14 @@
         ></GmapMarker>
       </GmapMap>
 
-    </div>
+    </div><br>
 
             
           <!-- 中間地点input箱 -->
-          <input type="text" v-model="post.relayPosition[index].position.lat" placeholder="緯度">
-          <input type="text" v-model="post.relayPosition[index].position.lng" placeholder="経度">
+          <!-- <input type="text" v-model="post.relayPosition[index].position.lat" placeholder="緯度">
+          <input type="text" v-model="post.relayPosition[index].position.lng" placeholder="経度"> -->
           <!-- <input type="text" v-model="post.relayPosition[index].image" placeholder="画像"> -->
-          <input type="text" v-model="post.relayPosition[index].title" placeholder="タイトル">
+          <input class="m-title" type="text" v-model="post.relayPosition[index].title" placeholder="タイトル"><br><br>
           <textarea  class="m-detail" type="text" v-model="post.relayPosition[index].text"  placeholder="中間地点で表示する内容" rows="8"></textarea>
           <!-- <input type="text" v-model="post.relayPosition[index].text" placeholder="内容"> -->
            <div>
@@ -161,21 +176,22 @@
           <!-- 削除ボタン -->
           <button type="button" @click="removeRelay(index)">削除</button>
           </div>
-        </div>
+        </div><br><br>
           <!-- input追加 -->
         <button type="button" @click="addInput_relay">追加する</button>
-       </div><br><br><br><br><br><br>
+       </div><br><br><br></div><br><br><br>
    <!-- ================終了地点====================== -->
+   <div class="main-display">
       <div class="forms">
-        <div>
-            <label class="form-title" for="title">終了地点設定</label>
+        <div class="end-label">
+            <label class="titles" for="title">終了地点設定</label>
         </div> 
 
            <div id="map" class="maps">
       <GmapMap
         :center="center"
         :zoom="zoom"
-        style="width: 500px; height: 500px;"
+        style="width: 730px; height: 500px; display: block; margin:auto;"
         :options="mapStyle"
         @click="getClickPositionEnd"
       >
@@ -197,18 +213,19 @@
         ></GmapMarker>
       </GmapMap>
 
-    </div>
+    </div><br>
         
-            <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lat" placeholder="緯度">
-            <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lng" placeholder="経度">
+            <!-- <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lat" placeholder="緯度">
+            <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lng" placeholder="経度"> -->
             <!-- <input class="part" type="text" name="endPosition" v-model="post.endPosition.image" placeholder="画像"> -->
-            <input class="part" type="text" name="endPosition" v-model="post.endPosition.title" placeholder="タイトル">
+            <input class="m-title" type="text" name="endPosition" v-model="post.endPosition.title" placeholder="タイトル"><br><br>
             <textarea  class="m-detail" type="text" name="endPosition" v-model="post.endPosition.text"  placeholder="終了地点で表示する内容" rows="8"></textarea>
+           <br><br>
            <div>
               <input type="file" @change="setImageEnd($event)"/>
               <img :src="post.endPosition.image" class="setImage">
           </div>
-       </div>
+       </div><br><br><br></div>
        <div class="simple-form__footer">
             <button class="simple-form__submit-btn" @click="onSubmit()">Post</button>
             <!-- <div>{{message}}</div> -->
@@ -320,8 +337,6 @@ export default {
     },
 
     upload(file) {
-      // this.message = "アップロード中...";
-      
 
       // ref は reference の略。データの在り処＝住所を表すイメージ。
       const storageRef = storage.ref();
@@ -422,21 +437,78 @@ export default {
 
 <style scoped>
  .m-title{
-   width: 300px;
+   width: 700px;
+   /* box-shadow: 2px 2px 12px #cecece; */
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 2px solid rgb(117, 116, 116);
  }
 
  .m-detail{
-   width: 600px;
+   width: 740px;
+   font-size: 18px;
+   border: 2px solid rgb(136, 134, 134);
+   border-radius: 4px;
  }
 
  .setImage{
-   width: 500px;
-   height: auto;;
+   width: 300px;
+   height: auto;
  }
 
- .maps{
-   position:relative;
- }
+.mandatory {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: rgb(214, 47, 47);
+    text-align: center;
+ 
+}
+
+.titles{
+  text-align: left;
+  font-size: 150%;
+}
+
+.main-title-label{
+  margin-left:-574px;
+}
+
+.cate-title-label{
+  margin-left:-364px;
+}
+
+.mdetail-label{
+  margin-left:-664px;
+}
+
+.mimage-label{
+  margin-left:-614px;
+}
+
+.relay-label{
+  margin-left:-634px;
+}
+
+.end-label{
+  margin-left:-634px;
+}
+
+.start-label{
+  margin-left:-584px;
+}
+
+.main-display{
+  background-color: #fcf9f9;
+  box-shadow: 2px 2px 12px #e2e1e1;
+  margin-left: 250px;
+  margin-right: 250px;
+}
+
+
 </style>
 
 
