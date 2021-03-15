@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import * as GoogleMaps from "vue2-google-maps";
 import { googleMapKey } from "./apikey";
+import "./firebase.js"
 
 Vue.config.productionTip = false
 
