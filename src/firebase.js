@@ -1,4 +1,3 @@
-
 import firebase from "firebase";
 import "firebase/firestore";
 
@@ -16,4 +15,3 @@ firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
 export const storage = firebase.storage();
-
