@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Post from '../views/Post.vue'
 import ShowPost from '../views/ShowPost.vue'
 import ShowPosts from '../views/ShowPosts.vue'
-
+import MyPage from "../views/MyPage.vue"
+import store from "../store"
 Vue.use(VueRouter)
 
 const routes = [
@@ -18,9 +19,23 @@ const routes = [
     component: ShowPost
   },
   {
-    path: '/post',
-    name: 'Post',
-    component: Post
+    path: "/post",
+    name: "Post",
+    component: Post,
+    // meta: { requiresAuth: true },
+    beforeEnter(to, from, next) {
+      if (store.getters.uid) {
+        next()
+      } else {
+        next("/login")
+      }
+    },
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage,
+    // meta: { requiresAuth: true },
   },
   
 ]

@@ -3,11 +3,22 @@
     <div id="nav">
       <router-link to="/">showposts</router-link> |
       <router-link to="/showpost">showpost</router-link>|
-      <router-link to="/post">post</router-link>
+      <router-link to="/post" v-if="isLoggedIn">post</router-link>|
+      <router-link to="/mypage">mypage</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.uid !== null
+    },
+  },
+}
+</script>
 
 <style>
 #app {
