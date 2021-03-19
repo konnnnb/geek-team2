@@ -1,22 +1,22 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Post from '../views/Post.vue'
-import ShowPost from '../views/ShowPost.vue'
-import ShowPosts from '../views/ShowPosts.vue'
-import MyPage from "../views/MyPage.vue"
-import store from "../store"
-Vue.use(VueRouter)
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Post from "../views/Post.vue";
+import ShowPost from "../views/ShowPost.vue";
+import ShowPosts from "../views/ShowPosts.vue";
+import MyPage from "../views/MyPage.vue";
+import store from "../store";
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'ShowPosts',
-    component: ShowPosts
+    path: "/",
+    name: "ShowPosts",
+    component: ShowPosts,
   },
   {
-    path: '/showpost/:id',
-    name: 'ShowPost',
-    component: ShowPost
+    path: "/showpost/:id",
+    name: "ShowPost",
+    component: ShowPost,
   },
   {
     path: "/post",
@@ -25,9 +25,9 @@ const routes = [
     // meta: { requiresAuth: true },
     beforeEnter(to, from, next) {
       if (store.getters.uid) {
-        next()
+        next();
       } else {
-        next("/login")
+        next("/mypage");
       }
     },
   },
@@ -37,13 +37,12 @@ const routes = [
     component: MyPage,
     // meta: { requiresAuth: true },
   },
-  
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
