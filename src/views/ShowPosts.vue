@@ -1,7 +1,7 @@
 <template>
 
   <div class="showPosts">
-      <div class="showPost" v-for="(post, index) in posts" v-bind:key="index">
+      <div class="showPost" v-for="(post, index) in posts" v-bind:key="index" v-on:click="ToshowPost(post.id)">
         <h2>{{ post.mainTitle }}</h2>
         <div v-for="(value, index) in post.category" v-bind:key="index">
           <h4>#{{ value }} </h4>
@@ -15,14 +15,20 @@
 <script>
 import firebase from "firebase"
 export default {
-  name: 'ShowPosts',
+  name: 'ShowPost',
+  methods :{
+  ToshowPost: function(id){
+  this.$router.push("/showpost/" + id);
+    }
+    },
   data() {
     return {
       posts: [],
     }
   },
-  
+
   created() {
+  
     firebase
       .firestore()
       .collection("posts")
