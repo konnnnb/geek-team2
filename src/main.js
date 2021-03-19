@@ -4,6 +4,7 @@ import router from './router'
 import * as GoogleMaps from "vue2-google-maps";
 import { googleMapKey } from "./apikey";
 import "./firebase.js"
+import store from "./store"
 Vue.config.productionTip = false
 
 Vue.use(GoogleMaps, {
@@ -17,5 +18,6 @@ Vue.use(GoogleMaps, {
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
