@@ -1,7 +1,8 @@
 <template>
   <div class="showPosts">
-      <div class="showPost" v-for="(post, index) in posts" v-bind:key="index">
-        <h3>{{ post.mainTitle }}</h3>
+      <div class="showPost" v-for="(post, index) in posts" v-bind:key="index" v-on:click="ToshowPost(post.id)">
+
+           <h3>{{ post.mainTitle }}</h3>
         <div v-for="(value, index) in post.category" v-bind:key="index">
           <h4>カテゴリー：{{ value }}</h4>
         </div>
@@ -28,7 +29,7 @@
               :position="post.endPosition.position"
             ></GmapMarker>
           </GmapMap>
-        </div>  
+        </div>
     </div>
   </div>
 </template>
@@ -36,33 +37,20 @@
 <script>
 import firebase from "firebase"
 export default {
-  name: 'ShowPosts',
+  name: 'ShowPost',
+  methods :{
+  ToshowPost: function(id){
+  this.$router.push("/showpost/" + id);
+    }
+    },
   data() {
     return {
-      posts: [
-        //  {
-        // mainTitle: ("東京都府中市"),
-        // category: ("地元"),
-        // mainDescription: ("地元にある大國魂神社です。"),
-        // mainImage: require("../assets/sample1.jpg"),
-        // startPosition: {position:{lat:(35.66747607542623),lng:(139.47899109739402)},image: require("../assets/sample1.jpg"),title:("a"),text:("aaa")},
-        // endPosition: {position:{lat:(35.66747607542623),lng:(139.47899109739402)},image: require("../assets/sample1.jpg"),title:("b"),text:("bbb") },
-        // relayPosition: [{position:{lat:(35.66747607542623),lng:(139.47899109739402)},image: require("../assets/sample1.jpg"),title:("c"),text:("ccc")},{position:{lat:(35.66747607542623),lng:(139.47899109739402)},image: require("../assets/sample1.jpg"),title:("d"),text:("ddd")},]
-        // },
-        // {
-        //   mainTitle: ("早稲田大学"),
-        //   category: ("大学"),
-        //   mainDescription: ("とても大きな大学です。"),
-        //   mainImage: require("../assets/sample2.jpg"),
-        //   startPosition: {position:{lat:(35.709251635804335),lng:(139.72077192659762)},image: require("../assets/sample2.jpg"),title:("1"),text:("123")},
-        //   endPosition: {position:{lat:(35.709251635804335),lng:(139.72077192659762)},image: require("../assets/sample2.jpg"),title:("2"),text:("234")},
-        //   relayPosition: [{position:{lat:(35.709251635804335),lng:(139.72077192659762)},image: require("../assets/sample2.jpg"),title:("2"),text:("234")},]
-        //   },
-      ],
+      posts: [],
     }
   },
-  
+
   created() {
+  
     firebase
       .firestore()
       .collection("posts")

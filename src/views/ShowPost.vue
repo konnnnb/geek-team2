@@ -36,23 +36,17 @@ export default {
     },
   data (){
     return {
-    
-      post : {
-         title:"春のお散歩",
-         category: "自然",
-         description:"桜の季節にぴったり",
-         startPosition:{position:{lat: 35.698414, lng: 139.766325}, title:"吉祥寺駅",text:"出発" },
-         relayPosition:[{position:{lat: 35.708414, lng: 139.776325},title:"三鷹駅",text:"出発" },{position:{lat: 35.728414, lng: 139.796325},title:"武蔵小金井",text:"出発" }],
-         endPosition:{position:{lat: 35.718414, lng: 139.786325},title:"武蔵境駅",text:"出発" }
-      },
+      post : {},
     }
   },
   created() {
+    console.log(this.$route.params.id)
       db
       .collection("posts")
+      .doc(this.$route.params.id)
       .get()
       .then(snapshot => {
-        this.post = snapshot.docs[0].data()
+        this.post = snapshot.data()
       });
   },
 
@@ -61,9 +55,6 @@ export default {
 
 <style scoped>
 
-/* .tripTitle {
-  background-image: ;
-} */
 .flowchart {
   display: flex;
   flex-direction: column;
