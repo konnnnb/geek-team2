@@ -2,8 +2,8 @@
   <div class="showPosts">
       <div class="showPost" v-for="(post, index) in posts" v-bind:key="index">
         <h3>{{ post.mainTitle }}</h3>
-        <div v-for="(value, index) in category" v-bind:key="index">
-          <h4>カテゴリー：{{ value.category }}</h4>
+        <div v-for="(value, index) in post.category" v-bind:key="index">
+          <h4>カテゴリー：{{ value }}</h4>
         </div>
         <h5>{{ post.mainDescription }}</h5>
         <img v-bind:src="post.mainImage">
