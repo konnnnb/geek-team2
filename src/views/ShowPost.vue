@@ -36,7 +36,6 @@ export default {
     },
   data (){
     return {
-    
       post : {
          title:"春のお散歩",
          category: "自然",
@@ -48,11 +47,13 @@ export default {
     }
   },
   created() {
+    console.log(this.$route.params.id)
       db
       .collection("posts")
+      .doc(this.$route.params.id)
       .get()
       .then(snapshot => {
-        this.post = snapshot.docs[0].data()
+        this.post = snapshot.data()
       });
   },
 
@@ -61,9 +62,6 @@ export default {
 
 <style scoped>
 
-/* .tripTitle {
-  background-image: ;
-} */
 .flowchart {
   display: flex;
   flex-direction: column;
