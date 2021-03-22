@@ -3,7 +3,7 @@
        <div class="transitions">
           <div key="start"> {{post.title }}</div>
           <div key="text">{{post.text}}</div>
-          <img v-bind:src="post.image" alt="aa" width="20%">
+          <!-- <img v-bind:src="post.image" alt="aa" width="20%"> -->
        </div>
     </transition>
 </template>
@@ -20,6 +20,12 @@ export default {
 </script>
 
 <style scoped>
+.transitions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .point-enter-active, .point-leave-active {
   transition: opacity 1s;
 }
