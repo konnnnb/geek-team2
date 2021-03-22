@@ -19,6 +19,7 @@
 </template>
 <script>
 import axios from "../axios.js" //axiosのインスタンスをインポート
+import {firebaseConfig} from "../firebase"
 export default {
   data() {
     return {
@@ -34,7 +35,7 @@ export default {
       
               //axiosでapiを叩くメソッドを定義
       axios
-        .post("/accounts:signUp?key=AIzaSyBKEI_3l35ME_NxSizCLZhOWFe9R0slN8k", {
+        .post("/accounts:signUp?key="+firebaseConfig.apiKey, {
           email: this.email,
           password: this.password,
           returnSecureToken: true,

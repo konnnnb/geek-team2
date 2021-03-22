@@ -1,8 +1,9 @@
 <template>
   <div class="container">
-    <p>マイページです</p>
-    <button type="button" @click="logout()" v-if="isLoggedIn">ログアウトする</button>
-    <button @click="deleted()" v-if="isLoggedIn">アカウント削除</button>
+    <div class="signin"><br>
+    <button type="button" class="sign" @click="logout()" v-if="isLoggedIn">ログアウトする</button>
+    <button @click="deleted()" class="sign" v-if="isLoggedIn">アカウント削除</button>
+    </div><br>
     <div class ="boxes">
     <div class="box"><Signin v-if="!isLoggedIn"></Signin></div>
     <div class="box"><Signup v-if="!isLoggedIn"></Signup></div>
@@ -62,5 +63,30 @@ export default {
   background-color: #fcf9f9;
   box-shadow: 2px 2px 12px #e2e1e1;
   /* margin: block 80px; */
+}
+
+.signin{
+  display: flex;
+  justify-content:flex-end;
+}
+
+.sign{
+  display       : inline-block;
+  border-radius : 5%;
+  font-size     : 12pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 10px 19px; 
+  background    : #eeeeee;
+  color         : #000000;
+  line-height   : 1em; 
+  opacity       : 1; 
+  transition    : .3s;
+  box-shadow    : 1px 1px 1px #666666; 
+}
+
+.sign:hover {
+  box-shadow    : none;
+  opacity       : 0.8;
 }
 </style>

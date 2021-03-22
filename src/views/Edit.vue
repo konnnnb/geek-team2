@@ -2,7 +2,7 @@
 <div>
 
 <div class="container">
-
+<p>editttt</p>
   <div class="main-display"><br>
   <!-- {{$store.getters.uid}} -->
   <!-- ================メインタイトル=================== --> 
@@ -214,7 +214,7 @@
             <!-- </div><br><br><br> -->
             </div><br><br>
             <div class="post">
-            <button class="postBtn" @click="onSubmit()">投稿</button>
+            <button class="postBtn" @click="onSubmit()">更新</button>
             </div>
          
     </div>
@@ -277,6 +277,16 @@ export default {
         // relayPosition:[]
       },
     }
+  },
+    created() {
+    console.log(this.$route.params.id)
+      db
+      .collection("posts")
+      .doc(this.$route.params.id)
+      .get()
+      .then(snapshot => {
+        this.post = snapshot.data()
+      });
   },
 
   methods: {
@@ -346,10 +356,12 @@ export default {
     onSubmit() {
         console.log("submit!!!")
         this.post.uid=store.getters.uid
-       db.collection("posts").add(this.post)
-        console.log(this.post.uid+"アイディー")
+
+    db.collection("posts").doc(this.$route.params.id).update(
+    this.post
+  )
          console.log(JSON.stringify(this.post))
-         this.$router.push("/");
+         this.$router.push("/mypage");
      },
     getClickPosition($event) {
       console.log(

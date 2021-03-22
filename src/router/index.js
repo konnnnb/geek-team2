@@ -5,6 +5,7 @@ import ShowPost from "../views/ShowPost.vue";
 import ShowPosts from "../views/ShowPosts.vue";
 import MyPage from "../views/MyPage.vue";
 import store from "../store";
+import MyPageEdit from "../views/MyPageEdit.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,6 +36,12 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
+    // meta: { requiresAuth: true },
+  },
+  {
+    path: "/mypage-edit/:id",
+    name: "MyPageEdit",
+    component: MyPageEdit,
     // meta: { requiresAuth: true },
   },
 ];
