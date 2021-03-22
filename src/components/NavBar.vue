@@ -2,7 +2,7 @@
   <div class="nav__bar">
       <router-link to="/" class="nav__logo nav__link">ホーム</router-link>
       <div class="nav__items">
-        <router-link to="/showpost" class="nav__item nav__link">詳細</router-link>
+        <router-link to="/showpost" class="nav__item nav__link">My Page</router-link>
         <router-link to="/post" class="nav__item nav__link">投稿</router-link>
       </div>
     </div>
