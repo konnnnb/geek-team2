@@ -1,7 +1,8 @@
 <template>
 <div>
-  <button @click="aa">botann</button>
-  <Post/>
+  <!-- ここにも表示される ↓-->
+  <!-- {{$route.params.id}} -->
+  <!-- <Post/> -->
   <Edit/>
 </div>
 </template>
@@ -16,12 +17,7 @@ export default {
       postid:"" 
          }
   },
-  methods:{
-    aa(){
-      
-      console.log("aa")
-    }
-  },
+
     components: {
       Edit,
   },

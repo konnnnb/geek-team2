@@ -2,7 +2,7 @@
 <div>
 
 <div class="container">
-<p>editttt</p>
+{{$route.params.id}}
   <div class="main-display"><br>
   <!-- {{$store.getters.uid}} -->
   <!-- ================メインタイトル=================== --> 
@@ -279,7 +279,7 @@ export default {
     }
   },
     created() {
-    console.log(this.$route.params.id)
+    console.log(this.$route.params.id+"aaaiiiii")
       db
       .collection("posts")
       .doc(this.$route.params.id)

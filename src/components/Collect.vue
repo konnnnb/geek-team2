@@ -1,21 +1,28 @@
 <template>
 <div class="showposts">
-      <div v-for="(post, index) in myposts" v-bind:key="index" v-on:click="ToshowPost(post.id)">
+      <div v-for="(post, index) in myposts" v-bind:key="index">
         <div class="showPost" v-if="currentUser===post.uid">
-        <div><h2>{{ post.mainTitle }}</h2><button type="button" class="edit">編集</button></div>
+          <div  v-on:click="ToshowPost(post.id)">
+        <div><h2>{{ post.mainTitle }}</h2></div>
         <div v-for="(value, index) in post.category" v-bind:key="index">
           <h4>#{{ value }} </h4>
         </div>
         <h5>{{ post.mainDescription }}</h5>
         <img v-bind:src="post.mainImage">
+          </div>
+
+         <div  v-on:click="ToshowDelete(post.id)">
+        <!-- <Trush/> -->削除
+         </div>
+
         </div>
     </div>
-
 </div>
 </template>
 
 <script>
 import firebase from "firebase"
+import {db} from "@/firebase";
 import store from "../store"
 
 export default {
@@ -25,21 +32,27 @@ export default {
       postid:"",
     }
   },
+    components: {
+      // Trush,
+  },
+  
     
   methods :{
   ToshowPost: function(id){
     this.postid=id
   this.$router.push("/mypage-edit/"+id);
     },
-        test(){
-      const user = firebase.auth().currentUser
-      console.log(user)
-      console.log(store.getters.uid)
+    reload(){
+    this.$router.push("/")
+    console.log("err")
     },
-    // edit(){
-    //   console.log("edit")
-    //   this.$router.push("/post");
-    // }
+
+  ToshowDelete: function(id){
+        console.log(id+"確認")
+        db.collection("posts").doc(id).delete()
+    console.log("deleted!");
+    this.reload()
+    },
     
     },
     computed:{
@@ -88,11 +101,5 @@ h2 {
   display: block;
   margin: auto;
 }
-
-/* .edit{
- 
-  right: 20px;
-   top: 20px;
-} */
 
 </style>
