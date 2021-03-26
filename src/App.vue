@@ -3,7 +3,7 @@
 
     <NavBar/>
 
-    <router-view/>
+    <router-view id="main"/>
   </div>
 </template>
 
@@ -26,5 +26,10 @@ export default {
 
 body {
   margin: 0;
+}
+
+#main {
+  padding-top: 50px;
+
 }
 </style>
