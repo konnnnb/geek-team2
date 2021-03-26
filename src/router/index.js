@@ -5,6 +5,8 @@ import ShowPost from "../views/ShowPost.vue";
 import ShowPosts from "../views/ShowPosts.vue";
 import MyPage from "../views/MyPage.vue";
 import store from "../store";
+import MyPageEdit from "../views/MyPageEdit.vue";
+// import Collect from "../views/Collect.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -37,6 +39,18 @@ const routes = [
     component: MyPage,
     // meta: { requiresAuth: true },
   },
+  {
+    path: "/mypage-edit/:id",
+    name: "MyPageEdit",
+    component: MyPageEdit,
+    // meta: { requiresAuth: true },
+  },
+  // {
+  //   path: "/collect/:id",
+  //   name: "Collect",
+  //   component: Collect,
+  //   // meta: { requiresAuth: true },
+  // },
 ];
 
 const router = new VueRouter({
