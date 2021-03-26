@@ -3,8 +3,8 @@
 
 <div class="container">
 
-  
-    <div class="main-display">
+  <div class="main-display"><br>
+  {{$store.getters.uid}}
   <!-- ================メインタイトル=================== --> 
        <div class="forms">
          <div class="main-title-label">
@@ -18,25 +18,23 @@
         <div class="forms">
           <div class="cate-title-label">
             <label class="titles" for="title">カテゴリー</label> 
-            <!-- <span class="mandatory">必須</span> -->
-            
+            <!-- <span class="mandatory">必須</span> -->           
           </div>
-            <!-- <input class="part" type="text" name="category" v-model="post.category[0]"> -->
        
-       <div class="add-category">
-          <!-- eslint-disable-next-line vue/require-v-for-key -->
-          <div v-for="(text,index) in post.category">
-            
-          <!-- カテゴリーinput箱 -->
-          <input type="text" v-model="post.category[index]">
+          <div class="add-category">
+            <!-- eslint-disable-next-line vue/require-v-for-key -->
+            <div v-for="(text,index) in post.category">
+              
+              <!-- カテゴリーinput箱 -->
+              <input type="text" class="m-title" v-model="post.category[index]">
 
-          <!-- 削除ボタン -->
-          <button type="button" @click="removeCategory(index)">削除</button>
+              <!-- 削除ボタン -->
+              <button type="button" @click="removeCategory(index)">削除</button>
 
-        </div>
-          <!-- input追加 -->
-        <button type="button" @click="addInput">追加する</button>
-       </div>
+            </div>
+            <!-- input追加 -->
+            <button type="button" @click="addInput" class="minbtn">追加</button>
+         </div>
        </div><br><br><br>
 
 
@@ -46,190 +44,180 @@
           <label class="titles">詳細</label>
           <span class="mandatory">必須</span>
          </div>
-       <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription" data-formrun-class-if-error="form-control-danger" data-formrun-class-if-success="form-control-success" placeholder="メインとして表示する詳細文" rows="8" required></textarea>
+          <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription"  placeholder="メインとして表示する詳細文" rows="8" required></textarea>
        </div><br><br><br>
    <!-- ================メイン画像====================== -->       
        <div class="forms">
-         <div class="mimage-label">
-            <label class="titles">メイン写真</label>
-            <span class="mandatory">必須</span>
-         </div> 
+           <div class="mimage-label">
+              <label class="titles">メイン写真</label>
+              <span class="mandatory">必須</span>
+          </div> 
             <!-- <input class="part" type="text" name="mainImage" v-model="post.mainImage"> -->
-      <div>
-     <input type="file" @change="setImage($event)" required/>
-     <img :src="post.mainImage" class="setImage">
-  </div>
-       </div>
+         <div>
+            <input type="file" @change="setImage($event)" required/>
+            <img :src="post.mainImage" class="setImage">
+          </div>
+        </div>
     
        <br><br><br>
-    </div><br><br><br>
+  </div><br><br>
+    <!-- </div><br><br><br> -->
    <!-- ================スタート地点====================== -->   
-      <div class="main-display">    
-              <div class="forms">
-                <div class="start-label">
-            <label class="titles" for="title">スタート地点設定</label> 
-                </div><br>
+      <div class="main-display"><br>    
+        <div class="forms">
+            <div class="start-label">
+              <label class="titles" for="title">スタート地点設定</label> 
+            </div><br>
 
+          <div id="map" class="maps">
+            <GmapMap
+              :center="center"
+              :zoom="zoom"
+              style="width: 730px; height: 400px; display: block; margin:auto;"
+              :options="mapStyle"
+              @click="getClickPosition"
+            >
+            <GmapInfoWindow
+              :options="infoOptions"
+              :position="infoWindowPos"
+              :opened="infoWinOpen"
+              @closeclick="infoWinOpen = false"
+            >{{ infoTitle }}</GmapInfoWindow>
+            <GmapMarker
+              v-for="(m, id) in marker_items"
+              :position="m.position"
+              :title="m.title"
+              :key="id"
+              :icon="m.icon"
+              :clickable="true"
+              :draggable="false"
+              v-on:click="toggleInfoWindow(m)"
+            ></GmapMarker>
+            </GmapMap>
 
-  <!-- <div class="postMap">
-    <div v-for="(marker, id) in marker_items" :key="id">
-      <button v-on:click="delMarker(id)">削除</button>
-      <input type="text" v-model="marker.title" />
-      {{ marker.position }}
-    </div> -->
-    <!-- ==start-map== -->
-    <div id="map" class="maps">
-      <GmapMap
-        :center="center"
-        :zoom="zoom"
-        style="width: 730px; height: 500px; display: block; margin:auto;"
-        :options="mapStyle"
-        @click="getClickPosition"
-      >
-        <GmapInfoWindow
-          :options="infoOptions"
-          :position="infoWindowPos"
-          :opened="infoWinOpen"
-          @closeclick="infoWinOpen = false"
-        >{{ infoTitle }}</GmapInfoWindow>
-        <GmapMarker
-          v-for="(m, id) in marker_items"
-          :position="m.position"
-          :title="m.title"
-          :key="id"
-          :icon="m.icon"
-          :clickable="true"
-          :draggable="false"
-          v-on:click="toggleInfoWindow(m)"
-        ></GmapMarker>
-      </GmapMap>
+          </div>
+              <!-- </div> -->
+              <br>
 
-    </div>
-  </div><br>
-            <!-- <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lat" placeholder="緯度">
-            <input class="part" type="text" name="startPosition" v-model="post.startPosition.position.lng" placeholder="経度"> -->
-            <!-- <input class="part" type="text" name="startPosition" v-model="post.startPosition.image" placeholder="画像"> -->
             <input class="m-title" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル"><br><br>
             <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="スタート地点で表示する内容" rows="8"></textarea>
-      <div>
-        <input type="file" @change="setImageStart($event)"/>
-        <img :src="post.startPosition.image" class="setImage">
-     </div>
-       </div><br><br><br>
-</div><br><br><br>
+         <div>
+            <input type="file" @change="setImageStart($event)"/>
+            <img :src="post.startPosition.image" class="setImage">
+                 <!-- </div> -->
+          </div><br><br><br>
+        </div>
+      </div>
+<br><br><br>
 
 
    <!-- ================中間地点====================== -->    
-   <div class="main-display">    
-        <div class="forms">
+   <div class="main-display"> <br>   
+    <div class="forms">
           <div class="relay-title">
             <label class="titles" for="title">中間地点設定</label> 
-          </div>
-       </div>
+          </div><br>
        
-    <div class="add-relay">
+      <div class="add-relay">
           <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <div v-for="(text,index) in post.relayPosition">
+        <div v-for="(text,index) in post.relayPosition">
 
 
-      <div id="map" class="maps">
-      <GmapMap
-        :center="center"
-        :zoom="zoom"
-        style="width: 730px; height: 500px; display: block; margin:auto;"
-        :options="mapStyle"
-        @click="getClickPositionRelay($event,index)"
-      >
-        <GmapInfoWindow
-          :options="infoOptions"
-          :position="infoWindowPos"
-          :opened="infoWinOpen"
-          @closeclick="infoWinOpen = false"
-        >{{ infoTitle }}</GmapInfoWindow>
-        <GmapMarker
-          v-for="(m, id) in marker_items_relay"
-          :position="m.position"
-          :title="m.title"
-          :key="id"
-          :icon="m.icon"
-          :clickable="true"
-          :draggable="false"
-          v-on:click="toggleInfoWindow(m)"
-        ></GmapMarker>
-      </GmapMap>
+          <div id="map" class="maps">
+            <GmapMap
+              :center="center"
+              :zoom="zoom"
+              style="width: 730px; height: 400px; display: block; margin:auto;"
+              :options="mapStyle"
+              @click="getClickPositionRelay($event,index)"
+            >
+              <GmapInfoWindow
+                :options="infoOptions"
+                :position="infoWindowPos"
+                :opened="infoWinOpen"
+                @closeclick="infoWinOpen = false"
+              >{{ infoTitle }}</GmapInfoWindow>
+              <GmapMarker
+                v-for="(m, id) in marker_items_relay"
+                :position="m.position"
+                :title="m.title"
+                :key="id"
+                :icon="m.icon"
+                :clickable="true"
+                :draggable="false"
+                v-on:click="toggleInfoWindow(m)"
+              ></GmapMarker>
+              </GmapMap>
 
-    </div><br>
+            </div><br>
 
             
-          <!-- 中間地点input箱 -->
-          <!-- <input type="text" v-model="post.relayPosition[index].position.lat" placeholder="緯度">
-          <input type="text" v-model="post.relayPosition[index].position.lng" placeholder="経度"> -->
-          <!-- <input type="text" v-model="post.relayPosition[index].image" placeholder="画像"> -->
-          <input class="m-title" type="text" v-model="post.relayPosition[index].title" placeholder="タイトル"><br><br>
-          <textarea  class="m-detail" type="text" v-model="post.relayPosition[index].text"  placeholder="中間地点で表示する内容" rows="8"></textarea>
-          <!-- <input type="text" v-model="post.relayPosition[index].text" placeholder="内容"> -->
+              <!-- 中間地点input箱 -->
+              <input class="m-title" type="text" v-model="post.relayPosition[index].title" placeholder="タイトル"><br><br>
+              <textarea  class="m-detail" type="text" v-model="post.relayPosition[index].text"  placeholder="中間地点で表示する内容" rows="8"></textarea>
+              <!-- <input type="text" v-model="post.relayPosition[index].text" placeholder="内容"> -->
            <div>
               <input type="file" @change="setImageRelay($event,index)"/>
               <img :src="post.relayPosition[index].image" class="setImage">
-          </div>
-     <div>
-          <!-- 削除ボタン -->
-          <button type="button" @click="removeRelay(index)">削除</button>
+           </div>
+          <div>
+            <!-- 削除ボタン -->
+            <button type="button" @click="removeRelay(index)">削除</button>
           </div>
         </div><br><br>
           <!-- input追加 -->
-        <button type="button" @click="addInput_relay">追加する</button>
-       </div><br><br><br></div><br><br><br>
+        <button type="button" @click="addInput_relay" class="minbtn">追加</button>
+       </div><br><br></div>
+    </div><br><br><br>
    <!-- ================終了地点====================== -->
-   <div class="main-display">
-      <div class="forms">
+   <div class="main-display"><br>
+    <div class="forms">
         <div class="end-label">
             <label class="titles" for="title">終了地点設定</label>
-        </div> 
+        </div> <br>
 
            <div id="map" class="maps">
-      <GmapMap
-        :center="center"
-        :zoom="zoom"
-        style="width: 730px; height: 500px; display: block; margin:auto;"
-        :options="mapStyle"
-        @click="getClickPositionEnd"
-      >
-        <GmapInfoWindow
-          :options="infoOptions"
-          :position="infoWindowPos"
-          :opened="infoWinOpen"
-          @closeclick="infoWinOpen = false"
-        >{{ infoTitle }}</GmapInfoWindow>
-        <GmapMarker
-          v-for="(m, id) in marker_items_end"
-          :position="m.position"
-          :title="m.title"
-          :key="id"
-          :icon="m.icon"
-          :clickable="true"
-          :draggable="false"
-          v-on:click="toggleInfoWindow(m)"
-        ></GmapMarker>
-      </GmapMap>
+            <GmapMap
+              :center="center"
+              :zoom="zoom"
+              style="width: 730px; height: 400px; display: block; margin:auto;"
+              :options="mapStyle"
+              @click="getClickPositionEnd"
+              >
+              <GmapInfoWindow
+                :options="infoOptions"
+                :position="infoWindowPos"
+                :opened="infoWinOpen"
+                @closeclick="infoWinOpen = false"
+              >{{ infoTitle }}</GmapInfoWindow>
+              <GmapMarker
+                v-for="(m, id) in marker_items_end"
+                :position="m.position"
+                :title="m.title"
+                :key="id"
+                :icon="m.icon"
+                :clickable="true"
+                :draggable="false"
+                v-on:click="toggleInfoWindow(m)"
+              ></GmapMarker>
+            </GmapMap>
+           </div><br>
 
-    </div><br>
-        
-            <!-- <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lat" placeholder="緯度">
-            <input class="part" type="text" name="endPosition" v-model="post.endPosition.position.lng" placeholder="経度"> -->
-            <!-- <input class="part" type="text" name="endPosition" v-model="post.endPosition.image" placeholder="画像"> -->
             <input class="m-title" type="text" name="endPosition" v-model="post.endPosition.title" placeholder="タイトル"><br><br>
             <textarea  class="m-detail" type="text" name="endPosition" v-model="post.endPosition.text"  placeholder="終了地点で表示する内容" rows="8"></textarea>
            <br><br>
            <div>
               <input type="file" @change="setImageEnd($event)"/>
               <img :src="post.endPosition.image" class="setImage">
-          </div>
-       </div><br><br><br></div>
-       <div class="simple-form__footer">
-            <button class="simple-form__submit-btn" @click="onSubmit()">Post</button>
-            <!-- <div>{{message}}</div> -->
-       </div>
+          </div><br>
+    </div>
+            <!-- </div><br><br><br> -->
+            </div><br><br>
+            <div class="post">
+            <button class="postBtn" @click="onSubmit()">投稿</button>
+            </div>
+         
+    </div>
  
 </div>
  
@@ -237,11 +225,12 @@
 
 <script>
 import { db, storage } from "@/firebase";
-
+import store from "../store"
 export default {
   name: "PostMap",
     data() {
     return {
+   
       message:"",
       center: { lat: 35.698414, lng: 139.766325 },
       zoom: 18,
@@ -277,13 +266,13 @@ export default {
       infoTitle: null,
 
       post:{
+        uid:"",
         mainTitle:"",
         category:[],
         mainDescription:"",
         mainImage:"",
         startPosition:{position:{lat:35,lng:35},image:"",title:"",text:"" },
         endPosition:{position:{lat:35,lng:35},image:"",title:"",text:""},
-        // relayPosition:{longitude:"",latitude:"",image:"",title:"",text:""}
          relayPosition:[{position:{lat:35,lng:35},image:"",title:"",text:""}]
         // relayPosition:[]
       },
@@ -350,33 +339,16 @@ export default {
       // fileRef の場所に file を送る。 put は "置き換える" の意味。
       // uploadTask.on("state_changed", ...) を使う方法もあるが、ひとまず then で実装する
       return fileRef.put(file).then(() => fileRef.getDownloadURL())
-        // 上の then のなかで snapshot.getDownloadURL().then(...) と書いてもいいが、
-        // then で続けられるやつを return すると、外側に then を続けることができ、よみやすい
-        // 例 fetch(...).then(res => res.json()).then(...)
-        // .then(url => {
-        //   // storage にアップロードしたファイルに対応するドキュメントを保存する
-        //   // const image = {
-        //   //   name: file.name,
-        //   //   url,
-        //   //   createdAt
-        //   // };
-        //   // return db.collection("images").add(image);
-        // })
-        // .then(() => {
-        //   this.message = "アップロード完了！";
-        //   setTimeout(() => {
-        //     this.message = "";
-        //     this.disabled = false;
-        //   }, 1000);
-        // }
-       // );
+
     },
   
     
     onSubmit() {
         console.log("submit!!!");
        db.collection("posts").add(this.post)
-        console.log(JSON.stringify(this.post))
+        this.post.uid=store.getters.uid
+        console.log(this.post.uid+"アイディー")
+         console.log(JSON.stringify(this.post))
      },
     getClickPosition($event) {
       console.log(
@@ -427,11 +399,6 @@ export default {
     }
   },
 
-  computed: {
-        // isInValidName() {
-        //     return this.name.length < 5
-        // },
-    },
 }
 </script>
 
@@ -439,15 +406,15 @@ export default {
  .m-title{
    width: 700px;
    /* box-shadow: 2px 2px 12px #cecece; */
-  font-size: 18px;
+  font-size: 15px;
   padding: 12px 20px;
   border-radius: 4px;
   border: 2px solid rgb(117, 116, 116);
  }
 
  .m-detail{
-   width: 740px;
-   font-size: 18px;
+   width: 735px;
+   font-size: 15px;
    border: 2px solid rgb(136, 134, 134);
    border-radius: 4px;
  }
@@ -470,44 +437,67 @@ export default {
 
 .titles{
   text-align: left;
-  font-size: 150%;
+  font-size: 130%;
+  font-weight:bolder; 
 }
 
-.main-title-label{
-  margin-left:-574px;
-}
-
-.cate-title-label{
-  margin-left:-364px;
-}
-
-.mdetail-label{
-  margin-left:-664px;
-}
-
-.mimage-label{
-  margin-left:-614px;
-}
-
-.relay-label{
-  margin-left:-634px;
-}
-
-.end-label{
-  margin-left:-634px;
-}
-
-.start-label{
-  margin-left:-584px;
-}
 
 .main-display{
   background-color: #fcf9f9;
   box-shadow: 2px 2px 12px #e2e1e1;
-  margin-left: 250px;
-  margin-right: 250px;
+  margin-left: 150px;
+  margin-right: 150px;
 }
 
+.container{
+  display: flex;
+flex-flow: column;
+}
+
+.postBtn{
+  border-radius : 5%;
+  font-size     : 15pt;
+  text-align    : center; 
+  cursor        : pointer;
+  padding       : 19px 34px;
+  background    : #000000;
+  color         : #ffffff;
+  line-height   : 1em;
+  transition    : .3s; 
+  box-shadow    : 3px 3px 9px #666666;  
+  border        : 2px solid #000000;  
+  width: 200px;  
+
+}
+
+.postBtn:hover {
+  box-shadow    : none;
+  color         : #000000; 
+  background    : #ffffff;
+}
+
+.post{
+  position: center;
+}
+
+.minbtn{
+  display       : inline-block;
+  border-radius : 5%;
+  font-size     : 12pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 10px 19px; 
+  background    : #eeeeee;
+  color         : #000000;
+  line-height   : 1em; 
+  opacity       : 1; 
+  transition    : .3s;
+  box-shadow    : 1px 1px 1px #666666; 
+}
+.minbtn:hover {
+  box-shadow    : none;
+  opacity       : 0.8;
+}
 
 </style>
 
