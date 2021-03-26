@@ -1,23 +1,21 @@
 <template>
-<div class="showposts">
-      <div v-for="(post, index) in myposts" v-bind:key="index">
-        <div class="showPost" v-if="currentUser===post.uid">
-          <div  v-on:click="ToshowPost(post.id)">
-        <div><h2>{{ post.mainTitle }}</h2></div>
-        <div v-for="(value, index) in post.category" v-bind:key="index">
-          <h4>#{{ value }} </h4>
-        </div>
-        <h5>{{ post.mainDescription }}</h5>
-        <img v-bind:src="post.mainImage">
-          </div>
-
-         <div  v-on:click="ToshowDelete(post.id)">
-        <!-- <Trush/> -->削除
+<div  class="showposts">
+  <div v-for="(post, index) in myposts" v-bind:key="index" class="detail">
+    <div v-if="currentUser===post.uid" class="margin">
+      <div class="showPost">
+        <div  v-on:click="ToshowPost(post.id)">
+         <div><h2 class="fonts">{{ post.mainTitle }}</h2></div>
+           <div v-for="(value, index) in post.category" v-bind:key="index">
+              <h4 class="fonts">#{{ value }} </h4>
+            </div>
+               <h5 class="fonts">{{ post.mainDescription }}</h5>
+               <img v-bind:src="post.mainImage">
          </div>
-
+          <div class="delete-btn" v-on:click="ToshowDelete(post.id)">削除</div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -32,10 +30,6 @@ export default {
       postid:"",
     }
   },
-    components: {
-      // Trush,
-  },
-  
     
   methods :{
   ToshowPost: function(id){
@@ -79,27 +73,67 @@ export default {
 </script>
 <style scoped>
 .showposts {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  margin-left: 100px;
-  margin-right: 100px;
+display: flex;
+flex-wrap: wrap;
+margin: 50px;
 }
 
 .showPost {
-  background-color: #fcf9f9;
-  box-shadow: 2px 2px 12px #e2e1e1;
-  padding: 20px;
-  margin: 10px;
+  background-color: #faf5f5;
+  box-shadow: 2px 2px 12px #e2e0e0;
+    padding: 10px;
+  border-radius: 8px;
+  break-inside: avoid;
 }
-
 h2 {
   text-align: center;
 }
-
 .showPost img {
   width: 400px;
   display: block;
   margin: auto;
+}
+.fonts{
+  color:rgb(19, 18, 18) ;
+}
+.margin{
+  margin: 25px;
+}
+.detail{
+  width: 500px;
+}
+.detail:empty{
+width: 0px;
+height: 0px;
+}
+.delete-btn{
+  font-size: 14PX;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  text-align    : center; 
+  cursor        : pointer;
+  background    : #030114;
+  color         : #faf5f5; 
+  line-height   : 1em;
+  transition    : .3s; 
+  box-shadow    : 3px 3px 9px #666666;  
+  border        : 2px solid #030114;  
+  width: 100px; 
+  
+}
+
+.delete-btn:hover {
+  box-shadow    : none;
+  color         : #030114; 
+  background    : #faf5f5;
+}
+
+img{
+  filter:drop-shadow(0 0 5px #666666);
 }
 
 </style>

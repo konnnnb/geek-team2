@@ -2,7 +2,7 @@
 <div>
 
 <div class="container">
-{{$route.params.id}}
+  <div class="connect"><span>1</span>メイン設定</div>
   <div class="main-display"><br>
   <!-- {{$store.getters.uid}} -->
   <!-- ================メインタイトル=================== --> 
@@ -11,7 +11,7 @@
             <label class="titles">メインタイトル</label> 
             <span class="mandatory">必須</span>
           </div>
-            <input class="m-title" type="text" placeholder="メインタイトルを入力してください" name="mainTitle" v-model="post.mainTitle" required/>
+            <input class="m-title" type="text" placeholder="メインタイトルを入力してください" name="mainTitle" v-model="post.mainTitle" required><span class="focus"></span>
        </div><br><br><br>
 
   <!-- ================カテゴリー====================== -->
@@ -26,10 +26,10 @@
             <div v-for="(text,index) in post.category">
               
               <!-- カテゴリーinput箱 -->
-              <input type="text" class="m-title" v-model="post.category[index]">
+              <input type="text" class="m-title" v-model="post.category[index]"><span class="focus"></span>
 
               <!-- 削除ボタン -->
-              <button type="button" @click="removeCategory(index)">削除</button>
+              <button type="button" @click="removeCategory(index)"  class="minbtn">削除</button>
 
             </div>
             <!-- input追加 -->
@@ -44,7 +44,7 @@
           <label class="titles">詳細</label>
           <span class="mandatory">必須</span>
          </div>
-          <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription"  placeholder="メインとして表示する詳細文" rows="8" required></textarea>
+          <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription"  placeholder="メインとして表示する詳細文" rows="5"></textarea>
        </div><br><br><br>
    <!-- ================メイン画像====================== -->       
        <div class="forms">
@@ -54,7 +54,7 @@
           </div> 
             <!-- <input class="part" type="text" name="mainImage" v-model="post.mainImage"> -->
          <div>
-            <input type="file" @change="setImage($event)" required/>
+            <input type="file" @change="setImage($event)"/>
             <img :src="post.mainImage" class="setImage">
           </div>
         </div>
@@ -62,11 +62,12 @@
        <br><br><br>
   </div><br><br>
     <!-- </div><br><br><br> -->
-   <!-- ================スタート地点====================== -->   
+   <!-- ================スタート地点====================== --> 
+      <div class="connect"><span>2</span>開始地点設定</div>   
       <div class="main-display"><br>    
         <div class="forms">
             <div class="start-label">
-              <label class="titles" for="title">スタート地点設定</label> 
+              <!-- <label class="titles" for="title">開始地点設定</label>  -->
             </div><br>
 
           <div id="map" class="maps">
@@ -99,8 +100,8 @@
               <!-- </div> -->
               <br>
 
-            <input class="m-title" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル"><br><br>
-            <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="スタート地点で表示する内容" rows="8"></textarea>
+            <input class="m-title" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル"><span class="focus"></span><br><br>
+            <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="スタート地点で表示する内容" rows="5"></textarea>
          <div>
             <input type="file" @change="setImageStart($event)"/>
             <img :src="post.startPosition.image" class="setImage">
@@ -111,11 +112,12 @@
 <br><br><br>
 
 
-   <!-- ================中間地点====================== -->    
+   <!-- ================中間地点====================== -->   
+      <div class="connect"><span>3</span>中間地点設定</div> 
    <div class="main-display"> <br>   
     <div class="forms">
           <div class="relay-title">
-            <label class="titles" for="title">中間地点設定</label> 
+            <!-- <label class="titles" for="title">中間地点設定</label>  -->
           </div><br>
        
       <div class="add-relay">
@@ -153,8 +155,8 @@
 
             
               <!-- 中間地点input箱 -->
-              <input class="m-title" type="text" v-model="post.relayPosition[index].title" placeholder="タイトル"><br><br>
-              <textarea  class="m-detail" type="text" v-model="post.relayPosition[index].text"  placeholder="中間地点で表示する内容" rows="8"></textarea>
+              <input class="m-title" type="text" v-model="post.relayPosition[index].title" placeholder="タイトル"><span class="focus"></span><br><br>
+              <textarea  class="m-detail" type="text" v-model="post.relayPosition[index].text"  placeholder="中間地点で表示する内容" rows="5"></textarea>
               <!-- <input type="text" v-model="post.relayPosition[index].text" placeholder="内容"> -->
            <div>
               <input type="file" @change="setImageRelay($event,index)"/>
@@ -162,18 +164,19 @@
            </div>
           <div>
             <!-- 削除ボタン -->
-            <button type="button" @click="removeRelay(index)">削除</button>
-          </div>
+            <button type="button" @click="removeRelay(index)" class="minbtn">削除</button>
+          </div><br>
         </div><br><br>
           <!-- input追加 -->
         <button type="button" @click="addInput_relay" class="minbtn">追加</button>
        </div><br><br></div>
     </div><br><br><br>
    <!-- ================終了地点====================== -->
+      <div class="connect"><span>４</span>終了地点設定</div>
    <div class="main-display"><br>
     <div class="forms">
         <div class="end-label">
-            <label class="titles" for="title">終了地点設定</label>
+            <!-- <label class="titles" for="title">終了地点設定</label> -->
         </div> <br>
 
            <div id="map" class="maps">
@@ -203,8 +206,8 @@
             </GmapMap>
            </div><br>
 
-            <input class="m-title" type="text" name="endPosition" v-model="post.endPosition.title" placeholder="タイトル"><br><br>
-            <textarea  class="m-detail" type="text" name="endPosition" v-model="post.endPosition.text"  placeholder="終了地点で表示する内容" rows="8"></textarea>
+            <input class="m-title" type="text" name="endPosition" v-model="post.endPosition.title" placeholder="タイトル"><span class="focus"></span><br><br>
+            <textarea  class="m-detail" type="text" name="endPosition" v-model="post.endPosition.text"  placeholder="終了地点で表示する内容" rows="5"></textarea>
            <br><br>
            <div>
               <input type="file" @change="setImageEnd($event)"/>
@@ -215,7 +218,7 @@
             </div><br><br>
             <div class="post">
             <button class="postBtn" @click="onSubmit()">更新</button>
-            </div>
+            </div><br><br>
          
     </div>
  
@@ -419,18 +422,35 @@ export default {
  .m-title{
    width: 700px;
    /* box-shadow: 2px 2px 12px #cecece; */
-  font-size: 15px;
+  font-size: 17px;
   padding: 12px 20px;
-  border-radius: 4px;
-  border: 2px solid rgb(117, 116, 116);
+  font:rgb(19, 18, 18) ;
+  border: 0;
+  border-bottom: 2px solid rgb(190, 188, 188);
+  background-color: transparent;
+  outline: 0;
  }
+ .m-title:focus
+{
+	border-bottom: 1.5px solid rgb(73, 72, 72);
+  outline: 0;
+}
 
  .m-detail{
    width: 735px;
-   font-size: 15px;
-   border: 2px solid rgb(136, 134, 134);
-   border-radius: 4px;
+   font-size: 17px;
+   font:rgb(19, 18, 18) ;
+    border: 0;
+   border-bottom: 2px solid rgb(190, 188, 188);
+  background-color: transparent;
+  outline: 0;
+  
  }
+  .m-detail:focus
+{
+	border-bottom: 1.5px solid rgb(73, 72, 72);
+  outline: 0;
+}
 
  .setImage{
    width: 300px;
@@ -453,14 +473,20 @@ export default {
   font-size: 130%;
   font-weight:bolder; 
 }
+.titles-sub{
+  text-align: left;
+  font-size: 150%;
+  font-weight:bolder; 
+}
 
 
 .main-display{
-  background-color: #fcf9f9;
+  background-color: #faf5f5;
   box-shadow: 2px 2px 12px #e2e1e1;
   margin-left: 150px;
   margin-right: 150px;
   text-align: center;
+  margin-top: 50px;
 }
 
 .container{
@@ -474,20 +500,20 @@ flex-flow: column;
   text-align    : center; 
   cursor        : pointer;
   padding       : 19px 34px;
-  background    : #000000;
-  color         : #ffffff;
+  background    : #030114;
+  color         : #faf5f5;
   line-height   : 1em;
   transition    : .3s; 
   box-shadow    : 3px 3px 9px #666666;  
-  border        : 2px solid #000000;  
+  border        : 2px solid #030114;  
   width: 200px;  
 
 }
 
 .postBtn:hover {
   box-shadow    : none;
-  color         : #000000; 
-  background    : #ffffff;
+  color         : #030114; 
+  background    : #faf5f5;
 }
 
 .post{
@@ -500,9 +526,9 @@ flex-flow: column;
   font-size     : 12pt;
   text-align    : center;
   cursor        : pointer;
-  padding       : 10px 19px; 
-  background    : #eeeeee;
-  color         : #000000;
+  padding       : 8px 16px; 
+  background    : #faf5f5;
+  color         : #030114;
   line-height   : 1em; 
   opacity       : 1; 
   transition    : .3s;
@@ -511,6 +537,20 @@ flex-flow: column;
 .minbtn:hover {
   box-shadow    : none;
   opacity       : 0.8;
+}
+
+.connect{
+	color: #030114;
+  font-size: 30px;
+	margin-bottom: 5px;
+  text-align: center;
+}
+.connect span{
+	background: #030114;
+	padding: 5px 10px 5px 10px;
+	border-radius: 50%;
+	font-size: 25px;
+	color: rgb(245, 239, 239);
 }
 
 </style>
