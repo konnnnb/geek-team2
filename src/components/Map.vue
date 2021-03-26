@@ -46,7 +46,7 @@ export default {
 <style scoped>
 .fas{
   text-shadow: 3px 3px rgba(0,0,0,0.2);
-  color:#c2e9fb;
+  color:#e5f2f8;
   transition: 0.4s ease-out;
 }
 

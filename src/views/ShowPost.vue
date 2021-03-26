@@ -1,13 +1,16 @@
 <template>
 <div>
-  <div class="showPost" v-if="loading">loading...</div>
-  <div v-else>
+  <div class="showPost" v-if="loading">
+   <Loading /></div>
+  <div v-else class="mainpost">
       <div class="main">
-        <div v-for="(value, index) in post.category" v-bind:key="index">
-              <h4>{{ value }}</h4>
+        <div class="categories">
+          <div v-for="(value, index) in post.category" v-bind:key="index">
+                <h4>#{{ value }}</h4>
+          </div>
         </div>
         <div class="mainDescription">
-          <img v-bind:src="post.mainImage" alt="aa" width="20%">
+          <img v-bind:src="post.mainImage" alt="aa" width="50%">
           <div class="description">
             {{post.mainDescription}}
             {{ post.mainTitle }}
@@ -16,18 +19,18 @@
     </div>
 
     <div class="flowchart">
-      <p1 class="box" id="1">
+      <div class="box" id="box1">
           <Point :post="post.startPosition" class="point"/>
           <Map :post="post.startPosition"/>
-      </p1>
-      <p2  v-for="(relay, index) in post.relayPosition" v-bind:key="index" class="box" id="2">
+      </div>
+      <div  v-for="(relay, index) in post.relayPosition" v-bind:key="index" class="box" id="box2">
           <Point :post="relay" class="point"/>
           <Map :post="relay"/>
-      </p2>
-      <p3 class="box" id="3">
+      </div>
+      <div class="box" id="box3">
         <Point :post="post.endPosition" class="point"/>
         <Map :post="post.endPosition"/>
-      </p3>
+      </div>
     </div>
   </div>
 </div>
@@ -37,10 +40,11 @@
 import Map from "@/components/Map.vue"
 import Point from "@/components/Point.vue"
 import {db} from "@/firebase.js"
+import Loading from "@/components/Loading.vue"
 
 export default {
   components :{
-     Map, Point
+     Map, Point,  Loading
     },
   data (){
     return {
@@ -69,18 +73,38 @@ export default {
 </script>
 
 <style scoped>
+.mainpost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+}
+.main {
+  background-color:rgb(126, 255, 255, 0.4);
+  width:70%;
+}
+.categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
 .mainDescription {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+.description {
+  width: 50%;
+}
 .flowchart {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 70%;
 
 }
 
@@ -93,22 +117,31 @@ export default {
   margin: 2em 0;
   color: #FFF;
   /* background: #6eb7ff; */
-  border-bottom: solid 6px #3f87ce;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  /* border-bottom: solid 6px #3f87ce; */
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25); */
   border-radius: 9px;
   width: 50%;
 }
+
 .point {
   margin-right: 2%;
 }
 
-p1{
-  background-color:#6eb7ff;
+#box1{
+  background-color:#a1fd6b;
+
 }
 
-p2 {
-  background-color: yellow;
+#box2 {
+  background-color: rgb(252, 182, 101);
 }
+
+#box3 {
+  background-color: rgb(161, 159, 248);
+}
+
+
+
 
 .startposition-enter-active, .startposition-leave-active {
   transition: opacity 1s, transform 1s;
