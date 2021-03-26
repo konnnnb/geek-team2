@@ -1,22 +1,25 @@
 <template>
 
-  <div class="map">
-    <button class="button" @click="showModal =  true">地図を表示</button>
+  <div >
+    <div class="fas fa-map-marked-alt fa-2x" @click="showModal =  true"></div>
     <transition name="fade" appear>
             <div class="modal-overlay" v-if="showModal" v-on:click="showModal = false">
               <transition name="slide" appear>
-                <GmapMap
-                  :center="post.position"
-                  :zoom="16"
-                  style="width: 300px; height: 300px;"
-                >
-                  <GmapMarker
-                      :position="post.position"
-                      :clickable="true"
-                    :draggable="false"
-                      style="size: 2px"
-                    ></GmapMarker>
-                </GmapMap>
+                <div class="slides">
+                  <img v-bind:src="post.image" alt="aa" width="30%">
+                  <GmapMap
+                    :center="post.position"
+                    :zoom="16"
+                    style="width: 300px; height: 300px;"
+                  >
+                    <GmapMarker
+                        :position="post.position"
+                        :clickable="true"
+                      :draggable="false"
+                        style="size: 2px"
+                      ></GmapMarker>
+                  </GmapMap>
+                </div>
               </transition>
               <button v-on:click="showModal = false">閉じる</button>
             </div>
@@ -41,16 +44,14 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  outline: none;
-  border: none;
-  box-shadow: 3px 3px rgba(0,0,0,0.2);
-  border-radius: 8px;
+.fas{
+  text-shadow: 3px 3px rgba(0,0,0,0.2);
+  color:#e5f2f8;
   transition: 0.4s ease-out;
 }
 
-.button:hover{
-  box-shadow: 5px 5px rgba(0,0,0,0.5);
+.fas:hover{
+  text-shadow: 5px 5px rgba(0,0,0,0.5);
 }
 .modal-overlay{
   z-index:1;
@@ -65,6 +66,12 @@ export default {
   align-items: center;
   justify-content: center;
 
+}
+
+.slides {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .slide-enter-active,
 .slide-leave-active {

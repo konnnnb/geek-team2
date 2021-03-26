@@ -2,7 +2,7 @@
 <div>
 
 <div class="container">
-<div class="connect"><span>1</span>メイン設定</div>
+  <div class="connect"><span>1</span>メイン設定</div>
   <div class="main-display"><br>
   <!-- {{$store.getters.uid}} -->
   <!-- ================メインタイトル=================== --> 
@@ -29,7 +29,7 @@
               <input type="text" class="m-title" v-model="post.category[index]"><span class="focus"></span>
 
               <!-- 削除ボタン -->
-              <button type="button" @click="removeCategory(index)" class="minbtn">削除</button>
+              <button type="button" @click="removeCategory(index)"  class="minbtn">削除</button>
 
             </div>
             <!-- input追加 -->
@@ -44,7 +44,7 @@
           <label class="titles">詳細</label>
           <span class="mandatory">必須</span>
          </div>
-          <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription"  placeholder="メインとして表示する内容" rows="5" required></textarea>
+          <textarea  class="m-detail" type="text" name="mainDescription" v-model="post.mainDescription"  placeholder="メインとして表示する詳細文" rows="5"></textarea>
        </div><br><br><br>
    <!-- ================メイン画像====================== -->       
        <div class="forms">
@@ -54,7 +54,7 @@
           </div> 
             <!-- <input class="part" type="text" name="mainImage" v-model="post.mainImage"> -->
          <div>
-            <input type="file" @change="setImage($event)" required/>
+            <input type="file" @change="setImage($event)"/>
             <img :src="post.mainImage" class="setImage">
           </div>
         </div>
@@ -63,11 +63,11 @@
   </div><br><br>
     <!-- </div><br><br><br> -->
    <!-- ================スタート地点====================== --> 
-   <div class="connect"><span>2</span>開始地点設定</div>  
+      <div class="connect"><span>2</span>開始地点設定</div>   
       <div class="main-display"><br>    
         <div class="forms">
             <div class="start-label">
-              <!-- <label class="titles-sub" for="title">開始地点設定</label>  -->
+              <!-- <label class="titles" for="title">開始地点設定</label>  -->
             </div><br>
 
           <div id="map" class="maps">
@@ -101,7 +101,7 @@
               <br>
 
             <input class="m-title" type="text" name="startPosition" v-model="post.startPosition.title" placeholder="タイトル"><span class="focus"></span><br><br>
-            <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="開始地点で表示する内容" rows="5"></textarea>
+            <textarea  class="m-detail" type="text" name="startPosition" v-model="post.startPosition.text"  placeholder="スタート地点で表示する内容" rows="5"></textarea>
          <div>
             <input type="file" @change="setImageStart($event)"/>
             <img :src="post.startPosition.image" class="setImage">
@@ -112,12 +112,12 @@
 <br><br><br>
 
 
-   <!-- ================中間地点====================== -->    
-   <div class="connect"><span>3</span>中間地点設定</div>
+   <!-- ================中間地点====================== -->   
+      <div class="connect"><span>3</span>中間地点設定</div> 
    <div class="main-display"> <br>   
     <div class="forms">
           <div class="relay-title">
-            <!-- <label class="titles-sub" for="title">中間地点設定</label>  -->
+            <!-- <label class="titles" for="title">中間地点設定</label>  -->
           </div><br>
        
       <div class="add-relay">
@@ -164,7 +164,7 @@
            </div>
           <div>
             <!-- 削除ボタン -->
-            <button type="button" @click="removeRelay(index)"  class="minbtn">削除</button>
+            <button type="button" @click="removeRelay(index)" class="minbtn">削除</button>
           </div><br>
         </div><br><br>
           <!-- input追加 -->
@@ -172,11 +172,11 @@
        </div><br><br></div>
     </div><br><br><br>
    <!-- ================終了地点====================== -->
-   <div class="connect"><span>４</span>終了地点設定</div>
+      <div class="connect"><span>４</span>終了地点設定</div>
    <div class="main-display"><br>
     <div class="forms">
         <div class="end-label">
-            <!-- <label class="titles-sub" for="title">終了地点設定</label> -->
+            <!-- <label class="titles" for="title">終了地点設定</label> -->
         </div> <br>
 
            <div id="map" class="maps">
@@ -217,8 +217,8 @@
             <!-- </div><br><br><br> -->
             </div><br><br>
             <div class="post">
-            <button class="postBtn" @click="onSubmit()">投稿</button>
-            </div>
+            <button class="postBtn" @click="onSubmit()">更新</button>
+            </div><br><br>
          
     </div>
  
@@ -280,6 +280,16 @@ export default {
         // relayPosition:[]
       },
     }
+  },
+    created() {
+    console.log(this.$route.params.id+"aaaiiiii")
+      db
+      .collection("posts")
+      .doc(this.$route.params.id)
+      .get()
+      .then(snapshot => {
+        this.post = snapshot.data()
+      });
   },
 
   methods: {
@@ -349,10 +359,12 @@ export default {
     onSubmit() {
         console.log("submit!!!")
         this.post.uid=store.getters.uid
-       db.collection("posts").add(this.post)
-        console.log(this.post.uid+"アイディー")
+
+    db.collection("posts").doc(this.$route.params.id).update(
+    this.post
+  )
          console.log(JSON.stringify(this.post))
-         this.$router.push("/");
+         this.$router.push("/mypage");
      },
     getClickPosition($event) {
       console.log(
@@ -522,7 +534,6 @@ flex-flow: column;
   transition    : .3s;
   box-shadow    : 1px 1px 1px #666666; 
 }
-
 .minbtn:hover {
   box-shadow    : none;
   opacity       : 0.8;

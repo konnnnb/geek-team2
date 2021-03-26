@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBKEI_3l35ME_NxSizCLZhOWFe9R0slN8k",
   authDomain: "hitorio.firebaseapp.com",
   projectId: "hitorio",

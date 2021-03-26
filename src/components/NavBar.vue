@@ -4,6 +4,7 @@
       <div class="nav__items">
         <router-link to="/mypage" class="nav__item nav__link">My Page</router-link>
         <router-link to="/post" class="nav__item nav__link">投稿</router-link>
+        <router-link to="/mypage" class="nav__item nav__link">マイページ</router-link>
       </div>
   </div>
 </template>
